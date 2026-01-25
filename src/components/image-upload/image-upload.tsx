@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { ImagePlus, X, Loader2 } from "lucide-react";
-import { v4 as uuidv4 } from "uuid";
 import { toast } from "sonner";
 import Image from "next/image";
+import { uuidv4 } from "zod";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
