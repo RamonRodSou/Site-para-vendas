@@ -1,0 +1,99 @@
+insert into public.produtos 
+(title, original_price, current_price, discount, image_url, store_logo, store_name, affiliate_link, category, created_at)
+values
+(
+  'Parafusadeira e Furadeira de Impacto Makita HP333 12V C/ Maleta',
+  689.90,
+  529.90,
+  23,
+  'https://http2.mlstatic.com/D_NQ_NP_2X_751942-MLB76104486359_042024-F.webp',
+  'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
+  'Amazon',
+  'https://amazon.com.br',
+  'ELETRICA',
+  '2025-12-31 02:56:49.043+00'
+),
+(
+  'Jogo De Brocas E Pontas V-Line Bosch 41 Peças Com Maleta',
+  159.90,
+  98.90,
+  38,
+  'https://http2.mlstatic.com/D_NQ_NP_2X_751942-MLB76104486359_042024-F.webp',
+  'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
+  'Amazon',
+  'https://amazon.com.br',
+  'ACESSORIOS',
+  '2025-12-31 02:56:49.043+00'
+),
+(
+  'Serra Tico-Tico Dewalt 500w Velocidade Variável DW300',
+  750.00,
+  599.00,
+  20,
+  'https://http2.mlstatic.com/D_NQ_NP_2X_751942-MLB76104486359_042024-F.webp',
+  'https://http2.mlstatic.com/frontend-assets/ui-navigation/5.18.9/mercadolibre/logo__small.png',
+  'Mercado Livre',
+  'https://mercadolivre.com.br',
+  'ELETRICA',
+  '2025-12-31 02:56:49.043+00'
+),
+(
+  'Alicate Universal 8 Pol. Gedore Red Aço Cromo Vanádio',
+  65.90,
+  42.90,
+  35,
+  'https://http2.mlstatic.com/D_NQ_NP_2X_751942-MLB76104486359_042024-F.webp',
+  'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
+  'Amazon',
+  'https://amazon.com.br',
+  'MANUAL',
+  '2025-12-31 02:56:49.043+00'
+),
+(
+  'Trena Laser Digital Bosch GLM 20 Alcance 20 Metros',
+  299.00,
+  219.00,
+  27,
+  'https://http2.mlstatic.com/D_NQ_NP_2X_751942-MLB76104486359_042024-F.webp',
+  'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
+  'Amazon',
+  'https://amazon.com.br',
+  'MEDICAO',
+  '2025-12-31 02:56:49.043+00'
+),
+(
+  'Martelete Perfurador Rompedor 800w Wesco Com Maleta',
+  600.00,
+  449.90,
+  25,
+  'https://http2.mlstatic.com/D_NQ_NP_2X_751942-MLB76104486359_042024-F.webp',
+  'https://http2.mlstatic.com/frontend-assets/ui-navigation/5.18.9/mercadolibre/logo__small.png',
+  'Mercado Livre',
+  'https://mercadolivre.com.br',
+  'ELETRICA',
+  '2025-12-31 02:56:49.043+00'
+),
+(
+  'Esmerilhadeira Angular 4.1/2 Black+Decker 820w',
+  220.00,
+  179.90,
+  18,
+  'https://http2.mlstatic.com/D_NQ_NP_2X_751942-MLB76104486359_042024-F.webp',
+  'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
+  'Amazon',
+  'https://amazon.com.br',
+  'ELETRICA',
+  '2025-12-31 02:56:49.043+00'
+),
+(
+  'Jogo de Chaves Combinadas 6 a 22mm Tramontina Pro',
+  350.00,
+  269.90,
+  23,
+  'https://http2.mlstatic.com/D_NQ_NP_2X_751942-MLB76104486359_042024-F.webp',
+  'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
+  'Amazon',
+  'https://amazon.com.br',
+  'MANUAL',
+  '2025-12-31 02:56:49.043+00'
+);

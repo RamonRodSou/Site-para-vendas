@@ -1,0 +1,23 @@
+create table public.produtos (
+  id uuid not null default gen_random_uuid() primary key,
+  title text not null,
+  original_price numeric(10,2), -- Ex: 150.50
+  current_price numeric(10,2),
+  discount integer,
+  image_url text,
+  store_logo text,
+  store_name text,
+  affiliate_link text,
+  category text, -- Vamos salvar como Texto por simplicidade (ex: 'ELETRICA')
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+-- Habilitar Row Level Security (Segurança)
+alter table public.produtos enable row level security;
+
+-- Criar política para que QUALQUER UM possa LER (Select) os produtos (Público)
+create policy "Produtos são públicos para leitura"
+on public.produtos for select
+to anon, authenticated
+using (true);

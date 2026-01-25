@@ -1,0 +1,12 @@
+-- 1. Permite que o usuário 'anon' (público) USE o esquema public
+GRANT USAGE ON SCHEMA public TO anon, authenticated;
+
+-- 2. Permite que o usuário 'anon' selecione dados das tabelas
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO anon, authenticated;
+
+-- 3. Garante que futuras tabelas também tenham essa permissão
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO anon, authenticated;
+
+-- 4. (Opcional) Reforça a política de leitura pública na tabela produtos
+DROP POLICY IF EXISTS "Leitura Publica" ON public.produtos;
+CREATE POLICY "Leitura Publica" ON public.produtos FOR SELECT TO anon USING (true);

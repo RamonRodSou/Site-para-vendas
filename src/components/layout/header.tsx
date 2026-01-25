@@ -16,16 +16,19 @@ export function Header() {
             </div>
 
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-                
-                <div className="flex items-center gap-2">
-                    <div className="bg-orange-600 p-1.5 rounded-lg">
-                        <ShoppingBag className="text-white h-5 w-5" />
+                <Link 
+                    href={"/"} 
+                    className="group flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-orange-600 transition-colors"
+                >
+                    <div className="flex items-center gap-2">
+                        <div className="bg-orange-600 p-1.5 rounded-lg">
+                            <ShoppingBag className="text-white h-5 w-5" />
+                        </div>
+                        <span className="font-bold text-xl tracking-tight text-slate-800 hidden md:block">
+                            Martela<span className="text-orange-600">Ai</span>
+                        </span>
                     </div>
-                    <span className="font-bold text-xl tracking-tight text-slate-800 hidden md:block">
-                        Matela<span className="text-orange-600">Ai</span>
-                    </span>
-                </div>
-
+                </Link>
                 <nav className="hidden md:flex items-center gap-8">
                     {pages.map((it) => (
                         <Link 

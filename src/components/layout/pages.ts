@@ -3,10 +3,17 @@ import {
     Flame,       
     LayoutGrid,    
     Smartphone,    
-    Headset        
+    Headset,
+    Home        
 } from "lucide-react";
 
 export const pages = [
+    { 
+        label: "Inicio", 
+        icon: Home, 
+        href: "/",
+        color: "text-green-600" 
+    },
     { 
         label: "CUPOM", 
         icon: TicketPercent, 
@@ -36,5 +43,5 @@ export const pages = [
         icon: Headset, 
         href: "/contato", 
         color: "text-slate-600" 
-    },
+    }, 
 ];

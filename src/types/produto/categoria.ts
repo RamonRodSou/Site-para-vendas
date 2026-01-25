@@ -3,4 +3,10 @@ export enum Categoria {
     MANUAL,
     ACESSORIOS,
     MEDICAO,
+    CONSUMIVEIS,
+    OBRA,
+    TRANSPORTE,
+    EPI,
+    EPC,
+    OUTROS
 }

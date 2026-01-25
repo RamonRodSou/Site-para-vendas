@@ -3,13 +3,13 @@ import { Categoria } from "./categoria";
 
 export interface Produto extends Base {
     title: string
-    originalPrice: number
-    currentPrice: number
+    original_price: number
+    current_price: number
     discount: number
-    imageUrl: string
-    storeLogo: string
-    storeName: string
-    postedAt: string
-    affiliateLink: string
+    image_url: string
+    store_logo: string
+    store_name: string
+    created_at: string
+    affiliate_link: string
     category: Categoria
 }
