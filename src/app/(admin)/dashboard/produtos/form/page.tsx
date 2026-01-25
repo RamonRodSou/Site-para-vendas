@@ -16,8 +16,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Package, Link as LinkIcon, Store } from "lucide-react";
 import { stringUtil } from "@/lib/stringUtils";
 import { ImageUpload } from "@/src/components/image-upload/image-upload";
-import { Categoria } from "@/src/types/produto/categoria";
-import { imageLogoAffiliate } from "@/src/types/logoAffiliate/imageLogoAffiliate";
+import { Categoria } from "@/types/produto/categoria";
+import { imageLogoAffiliate } from "@/types/logoAffiliate/imageLogoAffiliate";
+import { Produto } from "@/types/produto/produto";
 
 export default function NovoProduto() {
     const router = useRouter();

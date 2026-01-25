@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar"
 import { Button } from "@/src/components/ui/button"
 import { DateUtils } from "@/lib/dataUtils"
 import { MoneyUtils } from "@/lib/moneyUtils"
-import { Produto } from "@/src/types/produto/produto"
+import { Produto } from "@/types/produto/produto"
 
 export default function Item({ data }: { data: Produto }) {
 

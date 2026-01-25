@@ -11,5 +11,5 @@ export interface Produto extends Base {
     store_name: string
     created_at: string
     affiliate_link: string
-    category: Categoria
+    category: string
 }

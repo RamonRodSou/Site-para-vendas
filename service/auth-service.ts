@@ -19,9 +19,9 @@
 //     }
 // }
 
-import { LoginResponse, Usuario } from "@/types/auth/auth";
 import { destroyCookie, setCookie, parseCookies } from "nookies";
 import { USUARIOS_PERMITIDOS } from "./loginDB";
+import { LoginResponse, Usuario } from "@/types/auth/auth";
 
 export const authService = {
     login: async (credentials: { email: string, senha: string }): Promise<LoginResponse> => {

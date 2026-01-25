@@ -1,4 +1,4 @@
-import { Categoria } from "@/src/types/produto/categoria";
+import { Categoria } from "@/types/produto/categoria";
 import * as z from "zod";
 
 export const produtoSchema = z.object({

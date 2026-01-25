@@ -9,7 +9,7 @@ import obraImg from "@/src/img/categoria/7-obra.webp";
 import outrosImg from "@/src/img/categoria/8-outros.webp";
 import trasnsporteImg from "@/src/img/categoria/9-trasnsporte.webp";
 import medicaoImg from "@/src/img/categoria/10-medicao.webp";
-import { Categoria } from "@/src/types/produto/categoria";
+import { Categoria } from "@/types/produto/categoria";
 
 export const categoriasData = [
     { id: 1, name: Categoria.ACESSORIOS, imageUrl: acessorioImg, label: "Acessórios" },
