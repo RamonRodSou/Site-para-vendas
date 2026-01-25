@@ -7,6 +7,7 @@ import { Button } from "@/src/components/ui/button"
 import { DateUtils } from "@/lib/dataUtils"
 import { MoneyUtils } from "@/lib/moneyUtils"
 import { Produto } from "@/types/produto/produto"
+import Link from "next/link"
 
 export default function Item({ data }: { data: Produto }) {
 
@@ -76,9 +77,9 @@ export default function Item({ data }: { data: Produto }) {
                         className="h-7 w-7 text-slate-400 hover:text-orange-600 hover:bg-orange-50 rounded-md"
                         asChild
                     >
-                        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer">
+                        <Link href={data.affiliate_link} target="_blank" rel="noopener noreferrer">
                             <ExternalLink size={14} />
-                        </a>
+                        </Link>
                     </Button>
                 </div>
             </CardContent>

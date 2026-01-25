@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { produtoService } from "@/service/produto/ProdutoService";
 import { Button } from "@/src/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Categoria } from "@/types/produto/categoria";
 
 interface ListaProdutosProps {
     titulo: string;
@@ -16,19 +17,28 @@ interface ListaProdutosProps {
 
 export default function ListaProdutos({ titulo, itemsPerPage = 8, categoria }: ListaProdutosProps) {
     const [page, setPage] = useState<number>(1);
+    const nomeCategoria = categoria && !isNaN(Number(categoria)) 
+        ? Categoria[Number(categoria)] 
+        : titulo;
 
     const { data: produtos = [], isLoading, isPlaceholderData } = useQuery({
         queryKey: ['produtos', page, categoria],
         queryFn: () => {
             if (categoria) {
-                return produtoService.getByCategory(categoria, page, itemsPerPage);
+                // CORREÇÃO AQUI: Convertemos o ID (6) para Nome ("TRANSPORTE") antes de buscar
+                const categoriaParaBuscar = !isNaN(Number(categoria)) 
+                    ? Categoria[Number(categoria)] 
+                    : categoria;
+
+                console.log("Buscando no banco por:", categoriaParaBuscar); // Debug
+
+                return produtoService.getByCategory(categoriaParaBuscar, page, itemsPerPage);
             }
             return produtoService.getAllPagined(page, itemsPerPage);
         },
         staleTime: 1000 * 60 * 5, 
         placeholderData: (previousData) => previousData,
     });
-
     const handleNext = () => {
         if (produtos.length === itemsPerPage) {
             setPage((old) => old + 1);
@@ -42,8 +52,8 @@ export default function ListaProdutos({ titulo, itemsPerPage = 8, categoria }: L
     return (
         <section className="max-w-6xl mx-auto bg-slate-50">
             <div className="flex items-center justify-between mb-6">
-                <h1 className="text-[1.5rem] font-black text-slate-900 leading-tight">
-                    {titulo}
+                <h1 className="text-[1.5rem] font-black text-slate-900 leading-tight uppercase">
+                    {nomeCategoria}
                 </h1>
             </div>
 
