@@ -18,7 +18,6 @@ import { stringUtil } from "@/lib/stringUtils";
 import { ImageUpload } from "@/src/components/image-upload/image-upload";
 import { Categoria } from "@/types/produto/categoria";
 import { imageLogoAffiliate } from "@/types/logoAffiliate/imageLogoAffiliate";
-import { Produto } from "@/types/produto/produto";
 
 export default function NovoProduto() {
     const router = useRouter();
@@ -40,7 +39,6 @@ export default function NovoProduto() {
 
     async function onSubmit(data: ProdutoFormData) {
     try {
-        console.log("Enviando:", data);
         const nomeCategoria = Categoria[data.category];
 
         const dataAtual = new Date().toISOString();
