@@ -68,6 +68,7 @@ export function crud<T>(endpoint: string, conversor?: (item: any) => T) {
                 throw error;
             }
         },
+        
 
         update: async (id: string | number, data: Partial<T>): Promise<T> => {
             try {

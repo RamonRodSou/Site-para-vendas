@@ -8,7 +8,7 @@ export const produtoSchema = z.object({
     current_price: z.number().min(1, { message: "Preço atual é obrigatório" }),
     discount: z.number().min(0).max(100, { message: "Desconto deve ser entre 0 e 100" }),
     
-    image_url: z.string().min(1, "URL obrigatória").url({ message: "URL da imagem inválida" }),
+    image_url: z.string(),
 
     store_name: z.string().min(1, { message: "Obrigatório" }),
     store_logo: z.string().url({ message: "URL do logo inválida" }),

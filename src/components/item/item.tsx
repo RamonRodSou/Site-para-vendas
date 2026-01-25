@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { ExternalLink, Store, Clock, Link } from "lucide-react"
+import { ExternalLink, Store, Clock } from "lucide-react"
 import { Card, CardContent } from "@/src/components/ui/card"
 import { Badge } from "@/src/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar"
@@ -12,7 +12,8 @@ export default function Item({ data }: { data: Produto }) {
 
     return (
         <Card className="group w-full max-w-[280px] h-[330px] flex flex-col overflow-hidden bg-white hover:shadow-lg hover:border-orange-500 transition-all duration-300 cursor-pointer border-slate-200">
-            <div className="relative h-[65%] w-full bg-white p-4 flex items-center justify-center border-b border-slate-100">
+            
+            <div className="relative h-[70%] w-full bg-white p-1 flex items-center justify-center border-b border-slate-100">
                 
                 {data.discount > 0 && (
                     <Badge className="absolute top-2 right-2 bg-green-600/90 hover:bg-green-700 font-bold z-10 text-[10px] px-2 h-7">
@@ -22,26 +23,26 @@ export default function Item({ data }: { data: Produto }) {
 
                 <div className="relative w-full h-full">
                     <Image 
-                    src={data.image_url} 
+                        src={data.image_url} 
                         alt={data.title}
                         fill
-                        className="object-contain transition-transform duration-500 group-hover:scale-105"
+                        className="object-contain transition-transform duration-500 group-hover:scale-105 p-1"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                 </div>
 
                 <div className="absolute bottom-2 right-2 shadow-sm rounded-full bg-white p-0.5 z-10 border border-slate-100">
                     <Avatar className="h-6 w-6">
-                        <AvatarImage src={data.store_logo} alt={data.store_name} />
+                        <AvatarImage src={data.store_logo} alt={data.store_name} className="object-contain" />
                         <AvatarFallback><Store size={12} /></AvatarFallback>
                     </Avatar>
                 </div>
             </div>
 
-            <CardContent className="h-[35%] p-3 flex flex-col justify-between bg-slate-50/30">
+            <CardContent className="h-[30%] p-3 flex flex-col justify-between bg-slate-50/30">
                 
                 <div>
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-1 text-[0.65rem] text-slate-400">
                             <Clock size={10} />
                             <span>{DateUtils.dateFormated(data.created_at)}</span>
@@ -68,14 +69,16 @@ export default function Item({ data }: { data: Produto }) {
                             {MoneyUtils.formatToReal(data.current_price)}
                         </span>
                     </div>
+                    
                     <Button 
                         variant="ghost" 
                         size="icon" 
                         className="h-7 w-7 text-slate-400 hover:text-orange-600 hover:bg-orange-50 rounded-md"
                         asChild
-                        onClick={(() => data.affiliate_link )}
                     >
-                        <ExternalLink size={14} />
+                        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink size={14} />
+                        </a>
                     </Button>
                 </div>
             </CardContent>

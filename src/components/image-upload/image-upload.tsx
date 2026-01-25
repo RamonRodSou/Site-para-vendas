@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { ImagePlus, X, Loader2 } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
@@ -14,108 +14,116 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 interface ImageUploadProps {
     onUploadComplete: (urls: string[]) => void;
     tenantId?: string;
+    initialUrls?: string[]; 
 }
 
-export function ImageUpload({ onUploadComplete, tenantId }: ImageUploadProps) {
+export function ImageUpload({ onUploadComplete, tenantId, initialUrls }: ImageUploadProps) {
     const [uploading, setUploading] = useState(false);
-    const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-    if (!tenantId) return;
+    useEffect(() => {
+        if (initialUrls && initialUrls.length > 0) {
+            setPreviewUrls(initialUrls[0]);
+        }
+    }, [initialUrls]);
+
+    const setPreviewUrls = (url: string | null) => {
+        setPreviewUrl(url);
+        if (url) {
+            onUploadComplete([url]);
+        } else {
+            onUploadComplete([]);
+        }
+    };
+
+    if (!tenantId) return null;
 
     async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-
         const files = event.target.files;
         if (!files || files.length === 0) return;
 
+        const file = files[0];
         setUploading(true);
-        const newUrls: string[] = [];
 
         try {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${tenantId}/${uuidv4()}.${fileExt}`;
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const fileExt = file.name.split('.').pop();
-                const fileName = `${tenantId}/${uuidv4()}.${fileExt}`;
+            const { error: uploadError } = await supabase.storage
+                .from('produtos_loja')
+                .upload(fileName, file);
 
-                const { error: uploadError } = await supabase.storage
-                    .from('produtos_loja')
-                    .upload(fileName, file);
-
-                if (uploadError) {
-                    throw uploadError;
-                }
-
-                 const { data } = supabase.storage
-                    .from('produtos_loja')
-                    .getPublicUrl(fileName);
-
-                newUrls.push(data.publicUrl);
+            if (uploadError) {
+                throw uploadError;
             }
 
-            const updatedUrls = [...previewUrls, ...newUrls];
-            setPreviewUrls(updatedUrls);
-            onUploadComplete(updatedUrls);
-            toast.success("Fotos enviadas com sucesso!");
+            const { data } = supabase.storage
+                .from('produtos_loja')
+                .getPublicUrl(fileName);
+
+            setPreviewUrls(data.publicUrl);
+            toast.success("Foto enviada com sucesso!");
 
         } catch (error) {
             console.error(error);
-            toast.error("Erro ao fazer upload das imagens.");
-
+            toast.error("Erro ao fazer upload da imagem.");
         } finally {
             setUploading(false);
+            event.target.value = ""; 
         }
     }
 
-    function removeImage(urlToRemove: string) {
-
-        const filtered = previewUrls.filter(url => url !== urlToRemove);
-        setPreviewUrls(filtered);
-        onUploadComplete(filtered);
+    function removeImage() {
+        setPreviewUrls(null);
     }
 
     return (
-        <div className="space-y-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50 transition-colors">
+        <div className="w-full">
+            
+            {!previewUrl ? (
+                <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50 transition-colors bg-slate-50 border-slate-300">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                         {uploading ? (
-                            <Loader2 className="w-8 h-8 text-muted-foreground animate-spin" />
+                            <Loader2 className="w-10 h-10 text-muted-foreground animate-spin mb-2" />
                         ) : (
-                            <ImagePlus className="w-8 h-8 text-muted-foreground" />
+                            <ImagePlus className="w-10 h-10 text-muted-foreground mb-2" />
                         )}
-                        <p className="pt-1 text-sm text-muted-foreground">Adicionar Fotos</p>
+                        <p className="text-sm font-medium text-muted-foreground">
+                            {uploading ? "Enviando..." : "Clique para selecionar a foto"}
+                        </p>
+                        <p className="text-xs text-slate-400 mt-1">
+                            JPG, PNG ou WEBP (Max 5MB)
+                        </p>
                     </div>
                     <input 
                         type="file" 
                         className="hidden" 
-                        multiple 
                         accept="image/*"
                         onChange={handleFileChange}
                         disabled={uploading}
                     />
                 </label>
-
-                {previewUrls.map((url, index) => (
-                    <div key={index} className="relative group aspect-square rounded-lg overflow-hidden border">
-                        <Image 
-                            src={url} 
-                            alt={`foto ${index}`} 
-                            fill 
-                            className="object-cover"
-                        />
-                        <button
-                            type="button"
-                            onClick={() => removeImage(url)}
-                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                            <X className="w-4 h-4" />
-                        </button>
-                    </div>
-                ))}
-            </div>
-            <p className="text-xs text-muted-foreground">
-                Formatos suportados: JPG, PNG. Máximo 5MB por foto.
-            </p>
+            ) : (
+                <div className="relative w-full h-64 rounded-lg overflow-hidden border border-slate-200 bg-white group">
+                    <Image 
+                        src={previewUrl} 
+                        alt="Foto do produto" 
+                        fill 
+                        className="object-contain p-2"
+                    />
+                    
+                    <button
+                        type="button"
+                        onClick={removeImage}
+                        className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-2 shadow-lg transition-transform hover:scale-105"
+                        title="Remover foto"
+                    >
+                        <X className="w-5 h-5" />
+                    </button>
+                    
+                    <div className="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors pointer-events-none" />
+                </div>
+            )}
         </div>
     );
 }

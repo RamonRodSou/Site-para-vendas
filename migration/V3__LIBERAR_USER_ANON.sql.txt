@@ -10,3 +10,34 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO anon, authen
 -- 4. (Opcional) Reforça a política de leitura pública na tabela produtos
 DROP POLICY IF EXISTS "Leitura Publica" ON public.produtos;
 CREATE POLICY "Leitura Publica" ON public.produtos FOR SELECT TO anon USING (true);
+
+
+
+
+
+-- LIBERAR PARA CADASTRAR produtos
+
+-- 1. Garante permissões de nível de banco (Grants) para o usuário anônimo
+GRANT ALL ON TABLE public.produtos TO anon;
+GRANT ALL ON TABLE public.produtos TO authenticated;
+GRANT ALL ON TABLE public.produtos TO service_role;
+
+-- 2. Garante que o ID automático (sequence) possa ser incrementado
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO authenticated;
+
+-- 3. Ativa o RLS (É melhor deixar ativado com uma política permissiva do que desativado)
+ALTER TABLE public.produtos ENABLE ROW LEVEL SECURITY;
+
+-- 4. Remove políticas antigas que podem estar bugadas
+DROP POLICY IF EXISTS "Permitir Insert Anonimo" ON public.produtos;
+DROP POLICY IF EXISTS "Permitir Leitura Publica" ON public.produtos;
+DROP POLICY IF EXISTS "Permitir Geral" ON public.produtos;
+
+-- 5. Cria uma ÚNICA política que libera TUDO (Select, Insert, Update, Delete)
+CREATE POLICY "Permitir Geral"
+ON public.produtos
+FOR ALL
+TO anon, authenticated
+USING (true)
+WITH CHECK (true);
