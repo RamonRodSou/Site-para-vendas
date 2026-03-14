@@ -160,7 +160,7 @@ export default function Produtos() {
                                         </TableCell>
 
                                         <TableCell className="hidden lg:table-cell text-xs text-slate-500">
-                                            {DateUtils.dateFormated(it.created_at)}
+                                            {DateUtils.dateFormated(it.data_criacao)}
                                         </TableCell>
 
                                         <TableCell>
