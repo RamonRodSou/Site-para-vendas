@@ -33,6 +33,7 @@ export default function NovoProduto() {
             store_name: stringUtil.EMPTY,
             store_logo: stringUtil.EMPTY,
             affiliate_link: stringUtil.EMPTY,
+            cupom: stringUtil.EMPTY,
             category: Categoria.OUTROS,
         },
     });
@@ -261,6 +262,18 @@ export default function NovoProduto() {
                                             Preenche o nome e a logo automaticamente.
                                         </p>
                                     </FormItem>
+
+                                    <FormField control={form.control} name="cupom" render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className="flex items-center gap-2">
+                                                Cupom
+                                            </FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="CUPOM" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:col-span-2">
                                         

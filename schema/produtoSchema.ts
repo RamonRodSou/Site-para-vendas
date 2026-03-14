@@ -15,6 +15,8 @@ export const produtoSchema = z.object({
     
     affiliate_link: z.string().url({ message: "Link de afiliado inválido" }),
     
+    cupom: z.string(),
+
     category: z.nativeEnum(Categoria, {
         message: "Selecione uma categoria válida",
     }),

@@ -12,7 +12,9 @@ import {
     Truck, 
     ExternalLink, 
     Store, 
-    Clock 
+    Clock,
+    Copy,
+    Check
 } from "lucide-react";
 import { Badge } from "@/src/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
@@ -30,6 +32,7 @@ export default function ProdutoPage() {
     const [product, setProduct] = useState<Produto | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [isCopied, setIsCopied] = useState(false);
 
     const { data: produtos = [] } = useQuery({
         queryKey: ['produtos'],
@@ -60,6 +63,14 @@ export default function ProdutoPage() {
 
         load();
     }, [dataId]);
+
+    const handleCopyCoupon = () => {
+        if (product?.cupom) {
+            navigator.clipboard.writeText(product.cupom);
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 3000); 
+        }
+    };
 
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center text-slate-500 text-sm">Carregando oferta...</div>;
@@ -124,7 +135,7 @@ export default function ProdutoPage() {
                                 
                                 <div className="flex items-center gap-1 text-[10px] md:text-xs text-slate-400">
                                     <Clock size={12} className="md:w-3.5 md:h-3.5" />
-                                    <span>Postado {DateUtils.dateFormated(product.created_at)}</span>
+                                    <span>Postado {DateUtils.dateFormated(product.data_criacao)}</span>
                                 </div>
                             </div>
 
@@ -149,6 +160,26 @@ export default function ProdutoPage() {
                                     </p>
                                 </div>
 
+                                {/* --- INÍCIO DA ÁREA DO CUPOM --- */}
+                                {product.cupom && (
+                                    <div className="mt-5 w-full">
+                                        <button 
+                                            onClick={handleCopyCoupon}
+                                            className="w-full flex items-center justify-between bg-slate-100 border-2 border-dashed border-slate-300 rounded-full px-5 py-3 hover:bg-slate-200 transition-colors focus:outline-none"
+                                        >
+                                            <span className="text-base md:text-lg font-bold text-slate-700">
+                                                {product.cupom}
+                                            </span>
+                                            <span className={`text-xs md:text-sm font-bold flex items-center gap-1 ${isCopied ? 'text-green-600' : 'text-slate-500'}`}>
+                                                {isCopied ? "COPIADO!" : "COPIAR"}
+                                            </span>
+                                        </button>
+                                        <p className="text-[10px] md:text-[11px] text-center text-slate-500 mt-2">
+                                            O campo para digitar o cupom fica no carrinho de compras ou na tela que escolhe a forma de pagamento.
+                                        </p>
+                                    </div>
+                                )}
+
                                 <Button 
                                     size="lg" 
                                     className="w-full mt-4 md:mt-6 bg-orange-600 hover:bg-orange-700 text-white font-bold text-base md:text-lg h-12 md:h-14 shadow-lg shadow-orange-100"
@@ -169,15 +200,15 @@ export default function ProdutoPage() {
                             </div>
 
                             <div className="grid grid-cols-2 gap-3 md:gap-4">
-                                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg border border-slate-100 hover:bg-white transition-colors">
+                                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg border border-[#ffb800] hover:bg-white transition-colors">
                                     <ShieldCheck className="text-green-600 h-4 w-4 md:h-5 md:w-5" />
                                     <div>
                                         <p className="text-[11px] md:text-xs font-bold text-slate-700">Compra Segura</p>
                                         <p className="text-[9px] md:text-[10px] text-slate-500">Garantida pela loja</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg border border-slate-100 hover:bg-white transition-colors">
-                                    <Truck className="text-blue-600 h-4 w-4 md:h-5 md:w-5" />
+                                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg border border-[#ffb800] hover:bg-white transition-colors">
+                                    <Truck className="text-green-600 h-4 w-4 md:h-5 md:w-5" />
                                     <div>
                                         <p className="text-[11px] md:text-xs font-bold text-slate-700">Entrega Rápida</p>
                                         <p className="text-[9px] md:text-[10px] text-slate-500">Envio imediato</p>

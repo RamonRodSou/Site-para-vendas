@@ -5,8 +5,8 @@ export enum Categoria {
     MEDICAO,
     CONSUMIVEIS,
     OBRA,
-    TRANSPORTE,
-    EPI,
-    EPC,
+    JARDINAGEM,
+    EPC_EPI,
+    PNEUMATICA,
     OUTROS
 }

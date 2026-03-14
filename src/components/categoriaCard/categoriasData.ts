@@ -15,11 +15,11 @@ export const categoriasData = [
     { id: 1, name: Categoria.ACESSORIOS, imageUrl: acessorioImg, label: "Acessórios" },
     { id: 2, name: Categoria.CONSUMIVEIS, imageUrl: consumiveisImg, label: "Consumíveis" },
     { id: 3, name: Categoria.ELETRICA, imageUrl: eletricaImg, label: "Elétrica" },
-    { id: 4, name: Categoria.EPC, imageUrl: epcImg, label: "EPC" },
-    { id: 5, name: Categoria.EPI, imageUrl: epiImg, label: "EPI" },
+    { id: 4, name: Categoria.PNEUMATICA, imageUrl: epcImg, label: "Pneumática" },
+    { id: 5, name: Categoria.EPC_EPI, imageUrl: epiImg, label: "EPC/EPI" },
     { id: 6, name: Categoria.MANUAL, imageUrl: manualImg, label: "Ferramentas Manuais" },
     { id: 7, name: Categoria.MEDICAO, imageUrl: medicaoImg, label: "Medição" },
     { id: 8, name: Categoria.OBRA, imageUrl: obraImg, label: "Obra" },
-    { id: 9, name: Categoria.OUTROS, imageUrl: outrosImg, label: "Outros" },
-    { id: 10, name: Categoria.TRANSPORTE, imageUrl: trasnsporteImg, label: "Transporte" }
+    { id: 9, name: Categoria.JARDINAGEM, imageUrl: trasnsporteImg, label: "Jardinagem" },
+    { id: 10, name: Categoria.OUTROS, imageUrl: outrosImg, label: "Outros" }
 ];

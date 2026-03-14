@@ -25,12 +25,11 @@ export default function ListaProdutos({ titulo, itemsPerPage = 8, categoria }: L
         queryKey: ['produtos', page, categoria],
         queryFn: () => {
             if (categoria) {
-                // CORREÇÃO AQUI: Convertemos o ID (6) para Nome ("TRANSPORTE") antes de buscar
                 const categoriaParaBuscar = !isNaN(Number(categoria)) 
                     ? Categoria[Number(categoria)] 
                     : categoria;
 
-                console.log("Buscando no banco por:", categoriaParaBuscar); // Debug
+                console.log("Buscando no banco por:", categoriaParaBuscar);
 
                 return produtoService.getByCategory(categoriaParaBuscar, page, itemsPerPage);
             }

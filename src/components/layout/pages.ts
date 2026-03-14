@@ -30,18 +30,18 @@ export const pages = [
         label: "CATEGORIAS", 
         icon: LayoutGrid, 
         href: "/categorias", 
-        color: "text-slate-600" 
+        color: "text-write" 
     },
     { 
         label: "GRUPOS VIP",
         icon: Smartphone, 
-        href: "/grupos", 
+        href: "https://chat.whatsapp.com/IKWDaRXVSEQ3g6mqNztVlS?mode=hq1tcla", 
         color: "text-blue-600"
     },
-    { 
-        label: "CONTATO", 
-        icon: Headset, 
-        href: "/contato", 
-        color: "text-slate-600" 
-    }, 
+    // { 
+    //     label: "CONTATO", 
+    //     icon: Headset, 
+    //     href: "/contato", 
+    //     color: "text-write" 
+    // }, 
 ];

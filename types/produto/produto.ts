@@ -1,5 +1,4 @@
 import { Base } from "../base";
-import { Categoria } from "./categoria";
 
 export interface Produto extends Base {
     title: string
@@ -9,7 +8,7 @@ export interface Produto extends Base {
     image_url: string
     store_logo: string
     store_name: string
-    created_at: string
     affiliate_link: string
+    cupom: string
     category: string
 }

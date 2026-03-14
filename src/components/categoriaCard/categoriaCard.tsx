@@ -33,7 +33,7 @@ export default function CategoriaCard() {
         <section className="max-w-6xl mx-auto bg-slate-50">
             <div className="grid grid-row-1 sm:grid-row-2 md:grid-row-4 gap-4">
                 <h2 className="text-xl md:text-2xl font-bold mb-8 text-slate-800 text-center md:text-left">
-                    Navegue por Categorias
+                    Categorias
                 </h2>
                 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center">

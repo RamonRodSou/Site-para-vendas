@@ -46,7 +46,7 @@ export default function Item({ data }: { data: Produto }) {
                     <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-1 text-[0.65rem] text-slate-400">
                             <Clock size={10} />
-                            <span>{DateUtils.dateFormated(data.created_at)}</span>
+                            <span>{DateUtils.dateFormated(data.data_criacao)}</span>
                         </div>
                             <div className="flex items-center gap-1 text-[0.6rem] text-slate-500 uppercase font-bold tracking-wide">
                                 <Store size={10} />
@@ -77,7 +77,7 @@ export default function Item({ data }: { data: Produto }) {
                         className="h-7 w-7 text-slate-400 hover:text-orange-600 hover:bg-orange-50 rounded-md"
                         asChild
                     >
-                        <Link href={data.affiliate_link} target="_blank" rel="noopener noreferrer">
+                        <Link href={data.affiliate_link} target="_blank" >
                             <ExternalLink size={14} />
                         </Link>
                     </Button>
