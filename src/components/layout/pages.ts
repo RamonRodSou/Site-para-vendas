@@ -9,7 +9,7 @@ import {
 
 export const pages = [
     { 
-        label: "Inicio", 
+        label: "INÍCIO", 
         icon: Home, 
         href: "/",
         color: "text-green-600" 
