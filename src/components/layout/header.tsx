@@ -24,14 +24,23 @@ export function Header() {
     }, [isMobileMenuOpen]);
 
     return (
-        <>
+        <> 
             <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-[#065179] backdrop-blur-md supports-[backdrop-filter]:bg-[#065179]">
                 
-                <div className="bg-white text-[#ea580c] text-[10px] md:text-xs py-2 text-center font-bold tracking-wide">
-                    Entre no nosso Grupo VIP de Ofertas e não perca nada! 
-                    <span className="underline ml-2 cursor-pointer hover:text-orange-400">Clicar aqui</span>
+                <div className="bg-white text-[#ea580c] text-[10px] md:text-xs py-2 flex items-center justify-center font-bold tracking-wide">
+                    <span>Entre no nosso Grupo VIP de Ofertas e não perca nada!</span> 
+                    <Link 
+                        href={"https://chat.whatsapp.com/IKWDaRXVSEQ3g6mqNztVlS?mode=hq1tcla"} 
+                        className="inline-flex items-center transition-colors"
+                    >
+                        <span 
+                            style={{ animation: 'highlight-flash 0.8s step-end infinite' }}
+                            className="ml-2 px-2 py-0.5 rounded-md cursor-pointer"
+                        >
+                            Clicar aqui
+                        </span>
+                    </Link>
                 </div>
-
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <Link 
                         href={"/"} 

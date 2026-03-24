@@ -123,3 +123,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@keyframes highlight-flash {
+  0%, 100% { 
+    background-color: transparent; 
+    color: #ea580c; 
+  }
+  50% { 
+    background-color: #ea580c; 
+    color: white; 
+  }
+}
+
+.animate-attention {
+  animation: highlight-flash 0.8s step-end infinite;
+}
