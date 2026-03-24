@@ -2,8 +2,9 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 import { ProdutoFormData, produtoSchema } from "@/schema/produtoSchema"; 
 import { produtoService } from "@/service/produto/ProdutoService";
@@ -21,8 +22,10 @@ import { imageLogoAffiliate } from "@/types/logoAffiliate/imageLogoAffiliate";
 
 export default function NovoProduto() {
     const router = useRouter();
+    const params = useParams();
+    const id = params?.id as string;
 
-    const form = useForm({
+    const form = useForm<ProdutoFormData>({
         resolver: zodResolver(produtoSchema),
         defaultValues: {
             title: stringUtil.EMPTY,
@@ -38,31 +41,56 @@ export default function NovoProduto() {
         },
     });
 
+    // Monitora o nome da loja para manter o Select sincronizado
+    const currentStoreName = form.watch("store_name");
+    const selectedStoreId = imageLogoAffiliate.find(loja => loja.label === currentStoreName)?.id.toString();
+
+    useEffect(() => {
+        if (id) {
+            produtoService.getById(id)
+                .then((produto) => {
+                    if (produto) {
+                        const categoryValue = Categoria[produto.category as keyof typeof Categoria];
+                        
+                        form.reset({
+                            ...produto,
+                            category: typeof categoryValue === 'number' ? categoryValue : Categoria.OUTROS
+                        });
+                    }
+                })
+                .catch(() => toast.error("Erro ao carregar dados do produto."));
+        }
+    }, [id, form]);
+
     async function onSubmit(data: ProdutoFormData) {
-    try {
-        const nomeCategoria = Categoria[data.category];
+        try {
+            const nomeCategoria = Categoria[data.category];
+            const dataAtual = new Date().toISOString();
 
-        const dataAtual = new Date().toISOString();
+            const payloadParaSalvar = {
+                ...data,                
+                category: nomeCategoria, 
+                updated_at: dataAtual,   
+            };
 
-        const payloadParaSalvar = {
-            ...data,                
-            category: nomeCategoria, 
-            created_at: dataAtual,   
-            updated_at: dataAtual,   
-        };
-
-        console.log("Enviando Payload Final:", payloadParaSalvar);
-        
-        await produtoService.create(payloadParaSalvar); 
-        
-        toast.success("Produto cadastrado com sucesso!");
-        router.push("/dashboard/produtos");
-        
-    } catch (error) {
-        console.error(error);
-        toast.error("Erro ao cadastrar produto. Tente novamente.");
+            if (id) {
+                await produtoService.update(id, payloadParaSalvar);
+                toast.success("Produto atualizado com sucesso!");
+            } else {
+                await produtoService.create({
+                    ...payloadParaSalvar,
+                    created_at: dataAtual
+                });
+                toast.success("Produto cadastrado com sucesso!");
+            }
+            
+            router.push("/dashboard/produtos");
+            
+        } catch (error) {
+            console.error(error);
+            toast.error(id ? "Erro ao atualizar produto." : "Erro ao cadastrar produto.");
+        }
     }
-}
 
     return (
         <div className="w-full max-w-4xl mx-auto p-4 md:p-8">
@@ -76,8 +104,12 @@ export default function NovoProduto() {
                                     <Package className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <CardTitle className="text-xl font-bold text-slate-800">Novo Produto</CardTitle>
-                                    <CardDescription>Cadastre uma nova oferta de afiliado.</CardDescription>
+                                    <CardTitle className="text-xl font-bold text-slate-800">
+                                        {id ? "Editar Produto" : "Novo Produto"}
+                                    </CardTitle>
+                                    <CardDescription>
+                                        {id ? "Altere as informações da oferta." : "Cadastre uma nova oferta de afiliado."}
+                                    </CardDescription>
                                 </div>
                             </div>
                         </CardHeader>
@@ -140,7 +172,6 @@ export default function NovoProduto() {
                                                     onValueChange={(value) => field.onChange(Number(value))} 
                                                     value={field.value?.toString()} 
                                                 >
-
                                                     <FormControl>
                                                         <SelectTrigger>
                                                             <SelectValue placeholder="Selecione..." />
@@ -231,6 +262,7 @@ export default function NovoProduto() {
                                     <FormItem>
                                         <FormLabel className="text-blue-600 font-bold">Selecione a Loja Parceira (Rápido)</FormLabel>
                                         <Select 
+                                            value={selectedStoreId}
                                             onValueChange={(selectedId) => {
                                                 const lojaSelecionada = imageLogoAffiliate.find(
                                                     item => item.id.toString() === selectedId
@@ -321,13 +353,12 @@ export default function NovoProduto() {
                                 </div>
                             </div>
 
-                            {/* Botões */}
                             <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-6 border-t mt-8">
                                 <Button variant="outline" type="button" onClick={() => router.back()} className="w-full sm:w-32">
                                     Cancelar
                                 </Button>
                                 <Button type="submit" className="w-full sm:w-48 bg-orange-600 hover:bg-orange-700 text-white font-bold shadow-md">
-                                    Salvar Produto
+                                    {id ? "Salvar Alterações" : "Salvar Produto"}
                                 </Button>
                             </div>
 

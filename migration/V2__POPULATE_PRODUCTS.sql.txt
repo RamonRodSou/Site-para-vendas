@@ -1,5 +1,5 @@
 insert into public.produtos 
-(title, original_price, current_price, discount, image_url, store_logo, store_name, affiliate_link, category, created_at)
+(title, original_price, current_price, discount, image_url, store_logo, store_name, affiliate_link, category, updated_at)
 values
 (
   'Parafusadeira e Furadeira de Impacto Makita HP333 12V C/ Maleta',

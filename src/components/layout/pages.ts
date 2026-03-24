@@ -21,7 +21,7 @@ export const pages = [
         color: "text-green-600" 
     },
     { 
-        label: "PROMOÇÃO DO DIA", 
+        label: "PROMOÇÕES", 
         icon: Flame, 
         href: "/promocoes", 
         color: "text-orange-600" 

@@ -1,3 +1,5 @@
+"use client"; // Certifique-se de ter o use client no topo
+
 import Image from "next/image"
 import { ExternalLink, Store, Clock } from "lucide-react"
 import { Card, CardContent } from "@/src/components/ui/card"
@@ -8,11 +10,21 @@ import { DateUtils } from "@/lib/dataUtils"
 import { MoneyUtils } from "@/lib/moneyUtils"
 import { Produto } from "@/types/produto/produto"
 import Link from "next/link"
+import { useRouter } from "next/navigation"; // Importar o router
 
 export default function Item({ data }: { data: Produto }) {
+    const router = useRouter();
+
+    // Função para navegar ao clicar no card
+    const handleCardClick = () => {
+        router.push(`/produto/${data.id}`);
+    };
 
     return (
-        <Card className="group w-full max-w-[280px] h-[330px] flex flex-col overflow-hidden bg-white hover:shadow-lg hover:border-orange-500 transition-all duration-300 cursor-pointer border-slate-200">
+        <Card 
+            onClick={handleCardClick}
+            className="group w-full max-w-[280px] h-[330px] flex flex-col overflow-hidden bg-white hover:shadow-lg hover:border-orange-500 transition-all duration-300 cursor-pointer border-slate-200"
+        >
             
             <div className="relative h-[70%] w-full bg-white p-1 flex items-center justify-center border-b border-slate-100">
                 
@@ -40,13 +52,13 @@ export default function Item({ data }: { data: Produto }) {
                 </div>
             </div>
 
-            <CardContent className="h-[30%] p-3 flex flex-col justify-between bg-slate-50/30">
+            <CardContent className="h-[30%] p-3 flex flex-col justify-between">
                 
                 <div>
                     <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-1 text-[0.65rem] text-slate-400">
                             <Clock size={10} />
-                            <span>{DateUtils.dateFormated(data.data_criacao)}</span>
+                            <span>{DateUtils.dateFormated(data.created_at)}</span>
                         </div>
                             <div className="flex items-center gap-1 text-[0.6rem] text-slate-500 uppercase font-bold tracking-wide">
                                 <Store size={10} />
@@ -76,8 +88,9 @@ export default function Item({ data }: { data: Produto }) {
                         size="icon" 
                         className="h-7 w-7 text-slate-400 hover:text-orange-600 hover:bg-orange-50 rounded-md"
                         asChild
+                        onClick={(e) => e.stopPropagation()}
                     >
-                        <Link href={data.affiliate_link} target="_blank" >
+                        <Link href={data.affiliate_link} target="_blank" rel="noopener noreferrer">
                             <ExternalLink size={14} />
                         </Link>
                     </Button>

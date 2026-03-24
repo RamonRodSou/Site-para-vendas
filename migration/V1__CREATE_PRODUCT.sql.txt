@@ -9,7 +9,7 @@ create table public.produtos (
   store_name text,
   affiliate_link text,
   category text, -- Vamos salvar como Texto por simplicidade (ex: 'ELETRICA')
-  created_at timestamptz default now(),
+  updated_at timestamptz default now(),
   updated_at timestamptz default now()
 );
 

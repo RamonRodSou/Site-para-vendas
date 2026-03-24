@@ -135,7 +135,7 @@ export default function ProdutoPage() {
                                 
                                 <div className="flex items-center gap-1 text-[10px] md:text-xs text-slate-400">
                                     <Clock size={12} className="md:w-3.5 md:h-3.5" />
-                                    <span>Postado {DateUtils.dateFormated(product.data_criacao)}</span>
+                                    <span>Postado {DateUtils.dateFormated(product.created_at)}</span>
                                 </div>
                             </div>
 

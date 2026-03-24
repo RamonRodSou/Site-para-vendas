@@ -16,7 +16,7 @@ export function crud<T>(endpoint: string, conversor?: (item: any) => T) {
         getAllPagined: async (page: number = 1, limit: number = 8): Promise<T[]> => {
             try {
                 const offset = (page - 1) * limit;
-                const response = await api.get(`/${endpoint}?select=*&limit=${limit}&offset=${offset}&order=created_at.desc`);
+                const response = await api.get(`/${endpoint}?select=*&limit=${limit}&offset=${offset}&order=updated_at.desc`);
                 
                 const dados = response.data;
                 return conversor ? dados.map(conversor) : dados;
@@ -34,7 +34,7 @@ export function crud<T>(endpoint: string, conversor?: (item: any) => T) {
                 const termoBusca = categoriaEncontrada ? categoriaEncontrada.name : categoria;
 
                 const response = await api.get(
-                    `/${endpoint}?select=*&category=eq.${termoBusca}&limit=${limit}&offset=${offset}&order=created_at.desc`
+                    `/${endpoint}?select=*&category=eq.${termoBusca}&limit=${limit}&offset=${offset}&order=updated_at.desc`
                 );
                 
                 const dados = response.data;

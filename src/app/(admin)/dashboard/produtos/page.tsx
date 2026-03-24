@@ -100,7 +100,7 @@ export default function Produtos() {
                                 <TableHead className="hidden md:table-cell">Preço Original</TableHead>
                                 <TableHead className="hidden md:table-cell">Categoria</TableHead>
                                 <TableHead className="hidden lg:table-cell">Criado em</TableHead>
-                                <TableHead className="w-[50px]"></TableHead> {/* Coluna de Ações */}
+                                <TableHead className="w-[50px]"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -118,6 +118,7 @@ export default function Produtos() {
                                 </TableRow>
                             ) : (
                                 filteredProducts.map((it) => (
+                
                                     <TableRow key={it.id}>
                                         <TableCell>
                                             <Avatar className="h-10 w-10 rounded-lg border border-slate-100">
@@ -160,7 +161,7 @@ export default function Produtos() {
                                         </TableCell>
 
                                         <TableCell className="hidden lg:table-cell text-xs text-slate-500">
-                                            {DateUtils.dateFormated(it.data_criacao)}
+                                            {DateUtils.dateFormated(it.created_at)}
                                         </TableCell>
 
                                         <TableCell>
@@ -181,7 +182,7 @@ export default function Produtos() {
                                                     </DropdownMenuItem>
                                                     <DropdownMenuSeparator />
                                                     
-                                                    <Link href={`/dashboard/produtos/form/${it.id}`} className="w-full">
+                                                    <Link href={`/dashboard/produtos/form/${it.id}`}>
                                                         <DropdownMenuItem className="cursor-pointer">
                                                             <FileEdit className="mr-2 h-4 w-4" />
                                                             Editar
