@@ -13,12 +13,12 @@ interface CategoryItemProps {
 const CategoryItem: React.FC<CategoryItemProps> = ({ imageUrl, label }) => {
     return (
         <div className="flex flex-col items-center text-center group cursor-pointer">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center p-4 overflow-hidden mb-3 transition-transform duration-300 group-hover:scale-105 group-hover:shadow-md">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center overflow-hidden mb-3 transition-transform duration-300 group-hover:scale-105 group-hover:shadow-md relative">
                 <Image 
                     src={imageUrl} 
                     alt={label} 
-                    className="object-contain w-full h-full"
-                    placeholder="blur" 
+                    className="object-cover w-full h-full"
+                    fill 
                 />
             </div>
             <p className="text-xs sm:text-sm font-semibold text-slate-700 group-hover:text-orange-600 transition-colors uppercase tracking-wide">
